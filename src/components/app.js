@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../actions/index';
 
 class App extends Component {
   componentWillMount() {
-    this.props.fetchUsers();
+    this.props.fetchProducts();
   }
 
-  renderUser({id, name, email}) {
+  renderProduct({id, name, email}) {
     return (
       <li className="list-group-item" key={id}>
-        <span className="label label-defualt label-pill pull-xs-right">
+        <span className="label label-default label-pill pull-xs-right">
           <a href={email}>{email}</a>
         </span>
         {name}
@@ -21,9 +21,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h4>Email Directory</h4>
+        <h4>Product List</h4>
         <ul className="list-group">
-          {this.props.users.map(this.renderUser)}
+	  {console.log(this.props.products)}
+          {this.props.products.map(this.renderProduct)}
         </ul>
       </div>
     );

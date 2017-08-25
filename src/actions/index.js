@@ -1,12 +1,18 @@
-import axios from 'axios';
+import * as types from './actionTypes';
+import productsApi from '../api/productsApi';
 
-export function fetchUsers() {
-  //const request = axios.get('http://jsonplaceholder.typicode.com/users');
-  const request = axios.get('http://localhost:7777/products/'); // Django backend
+export function fetchProductsSuccess(products) {
+  return {type: types.FETCH_PRODUCTS, payload: products};
+}
 
-  return (dispatch) => {
-    request.then(({data}) => {
-      dispatch({ type: 'FETCH_PROFILES', payload: data })
+export function fetchProducts() {
+  // make async call to api, handle promise, dispatch action when promise is resolved
+  console.log(productsApi);
+  return function(dispatch) {
+    return productsApi.getAllProducts().then(products => {
+      dispatch(fetchProductsSuccess(products));
+    }).catch(error => {
+      throw(error);
     });
   };
 }
